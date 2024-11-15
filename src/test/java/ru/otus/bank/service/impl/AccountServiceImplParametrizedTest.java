@@ -28,7 +28,11 @@ public class AccountServiceImplParametrizedTest {
     AccountServiceImpl accountServiceImpl;
 
     @ParameterizedTest
-    @CsvSource({"100, 10, true", "10, 100, false", "10, 0, false", "10, -1, false"})
+    @CsvSource({
+            "100, 10, true",
+            "10, 100, false",
+            "10, 0, false",
+            "10, -1, false"})
     public void testTransferValidation(String sourceSum, String transferSum, String expectedResult) {
         BigDecimal sourceAmount = new BigDecimal(sourceSum);
         BigDecimal transferAmount = new BigDecimal(transferSum);
@@ -46,7 +50,7 @@ public class AccountServiceImplParametrizedTest {
         when(accountDao.findById(eq(2L))).thenReturn(Optional.of(destinationAccount));
 
         assertEquals(expected, accountServiceImpl.makeTransfer(1L, 2L, transferAmount));
-        }
+    }
 
     @ParameterizedTest
     @MethodSource("provideParameters")
